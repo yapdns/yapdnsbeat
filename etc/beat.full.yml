@@ -181,7 +181,7 @@ filebeat.prospectors:
 #- input_type: stdin
 
 #========================= Filebeat global options ============================
-  
+
 # Event count spool threshold - forces network flush if exceeded
 #filebeat.spool_size: 2048
 

@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/elastic/beats/filebeat/harvester/encoding"
+	"github.com/yapdns/yapdns-client/harvester/encoding"
 	"github.com/stretchr/testify/assert"
 )
 

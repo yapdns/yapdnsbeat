@@ -7,9 +7,9 @@ import (
 
 	"golang.org/x/text/transform"
 
-	"github.com/elastic/beats/filebeat/config"
-	"github.com/elastic/beats/filebeat/harvester/encoding"
-	"github.com/elastic/beats/filebeat/input"
+	"github.com/yapdns/yapdns-client/config"
+	"github.com/yapdns/yapdns-client/harvester/encoding"
+	"github.com/yapdns/yapdns-client/input"
 	"github.com/elastic/beats/libbeat/logp"
 )
 

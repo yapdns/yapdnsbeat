@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/elastic/beats/filebeat/input"
+	"github.com/yapdns/yapdns-client/input"
 	"github.com/elastic/beats/libbeat/common/op"
 	pubtest "github.com/elastic/beats/libbeat/publisher/testing"
 	"github.com/stretchr/testify/assert"

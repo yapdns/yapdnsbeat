@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 	"sync"
 
-	cfg "github.com/elastic/beats/filebeat/config"
-	"github.com/elastic/beats/filebeat/input"
-	. "github.com/elastic/beats/filebeat/input"
+	cfg "github.com/yapdns/yapdns-client/config"
+	"github.com/yapdns/yapdns-client/input"
+	. "github.com/yapdns/yapdns-client/input"
 	"github.com/elastic/beats/libbeat/logp"
 	"github.com/elastic/beats/libbeat/paths"
 )

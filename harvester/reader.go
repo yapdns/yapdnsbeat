@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/elastic/beats/filebeat/input"
+	"github.com/yapdns/yapdns-client/input"
 	"github.com/elastic/beats/libbeat/logp"
 )
 

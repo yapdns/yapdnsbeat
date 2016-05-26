@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/elastic/beats/filebeat/harvester/processor"
+	"github.com/yapdns/yapdns-client/harvester/processor"
 	"github.com/elastic/beats/libbeat/common"
 )
 

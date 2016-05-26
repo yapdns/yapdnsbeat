@@ -3,8 +3,8 @@ package crawler
 import (
 	"fmt"
 
-	"github.com/elastic/beats/filebeat/harvester"
-	"github.com/elastic/beats/filebeat/input"
+	"github.com/yapdns/yapdns-client/harvester"
+	"github.com/yapdns/yapdns-client/input"
 )
 
 type ProspectorStdin struct {

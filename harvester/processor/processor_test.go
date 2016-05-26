@@ -5,7 +5,7 @@ package processor
 import (
 	"testing"
 
-	"github.com/elastic/beats/filebeat/input"
+	"github.com/yapdns/yapdns-client/input"
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/stretchr/testify/assert"
 )

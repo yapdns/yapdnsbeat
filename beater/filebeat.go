@@ -6,9 +6,9 @@ import (
 	"github.com/elastic/beats/libbeat/beat"
 	"github.com/elastic/beats/libbeat/logp"
 
-	cfg "github.com/elastic/beats/filebeat/config"
-	"github.com/elastic/beats/filebeat/crawler"
-	"github.com/elastic/beats/filebeat/input"
+	cfg "github.com/yapdns/yapdns-client/config"
+	"github.com/yapdns/yapdns-client/crawler"
+	"github.com/yapdns/yapdns-client/input"
 )
 
 // Filebeat is a beater object. Contains all objects needed to run the beat

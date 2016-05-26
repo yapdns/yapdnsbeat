@@ -6,9 +6,9 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/elastic/beats/filebeat/config"
-	"github.com/elastic/beats/filebeat/harvester"
-	"github.com/elastic/beats/filebeat/input"
+	"github.com/yapdns/yapdns-client/config"
+	"github.com/yapdns/yapdns-client/harvester"
+	"github.com/yapdns/yapdns-client/input"
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/stretchr/testify/assert"
 )

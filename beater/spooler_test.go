@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	cfg "github.com/elastic/beats/filebeat/config"
+	cfg "github.com/yapdns/yapdns-client/config"
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/stretchr/testify/assert"
 )

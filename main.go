@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/elastic/beats/filebeat/beater"
+	"github.com/yapdns/yapdns-client/beater"
 	"github.com/elastic/beats/libbeat/beat"
 )
 

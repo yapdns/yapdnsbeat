@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/elastic/beats/filebeat/harvester"
-	"github.com/elastic/beats/filebeat/input"
+	"github.com/yapdns/yapdns-client/harvester"
+	"github.com/yapdns/yapdns-client/input"
 	"github.com/elastic/beats/libbeat/logp"
 )
 
