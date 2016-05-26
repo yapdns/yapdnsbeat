@@ -19,8 +19,10 @@ filebeat.prospectors:
 
   # Paths that should be crawled and fetched. Glob based paths.
   paths:
-    - /var/log/*.log
+    - foo.log
     #- c:\programdata\elasticsearch\logs\*
+
+  pattern: (?P<domain>\d+)\.(\d+).(?P<rdata>\d+)
 
   # Exclude lines. A list of regular expressions to match. It drops the lines that are
   # matching any regular expression from the list.
@@ -76,20 +78,21 @@ filebeat.prospectors:
 
 # Configure what outputs to use when sending the data collected by the beat.
 # Multiple outputs may be used.
-
+output.console:
+    pretty: true
 #-------------------------- Elasticsearch output ------------------------------
-output.elasticsearch:
-  # Array of hosts to connect to.
-  hosts: ["localhost:9200"]
+# output.elasticsearch:
+#   # Array of hosts to connect to.
+#   hosts: ["localhost:9200"]
 
-  # Template name. By default the template name is filebeat.
-  template.name: "filebeat"
+#   # Template name. By default the template name is filebeat.
+#   template.name: "filebeat"
 
-  # Path to template file
-  template.path: "filebeat.template.json"
+#   # Path to template file
+#   template.path: "filebeat.template.json"
 
-  # Overwrite existing template
-  template.overwrite: false
+#   # Overwrite existing template
+#   template.overwrite: false
 
 #----------------------------- Logstash output --------------------------------
 #output.logstash:
@@ -110,4 +113,4 @@ output.elasticsearch:
 
 # Sets log level. The default log level is error.
 # Available log levels are: critical, error, warning, info, debug
-#logging.level: debug
+logging.level: debug

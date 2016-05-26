@@ -25,6 +25,7 @@ type prospectorConfig struct {
 	IgnoreOlder   time.Duration             `config:"ignore_older"`
 	Paths         []string                  `config:"paths"`
 	ScanFrequency time.Duration             `config:"scan_frequency"`
+	Pattern  	  *regexp.Regexp            `config:"pattern"`
 }
 
 func (p *prospectorConfig) Validate() error { return nil }

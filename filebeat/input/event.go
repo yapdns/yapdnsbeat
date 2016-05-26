@@ -24,6 +24,7 @@ type FileEvent struct {
 	JSONFields   common.MapStr
 	JSONConfig   *JSONConfig
 	FileState    FileState
+	DnsRecord 	 DnsRecord
 }
 
 type JSONConfig struct {
@@ -106,10 +107,13 @@ func (f *FileEvent) ToMapStr() common.MapStr {
 	event := common.MapStr{
 		common.EventMetadataKey: f.EventMetadata,
 		"@timestamp":            common.Time(f.ReadTime),
-		"source":                f.Source,
-		"offset":                f.Offset, // Offset here is the offset before the starting char.
-		"type":                  f.DocumentType,
-		"input_type":            f.InputType,
+		"domain": 				 f.DnsRecord.Domain,
+		"rdata":                 f.DnsRecord.Rdata,
+		"rtype":                 f.DnsRecord.Rtype,
+		// "source":                f.Source,
+		// "offset":                f.Offset, // Offset here is the offset before the starting char.
+		// "type":                  f.DocumentType,
+		// "input_type":            f.InputType,
 	}
 
 	if f.JSONConfig != nil && len(f.JSONFields) > 0 {
@@ -119,4 +123,28 @@ func (f *FileEvent) ToMapStr() common.MapStr {
 	}
 
 	return event
+}
+
+func (f *FileEvent) ExtractDnsRecord(regex *regexp.Regexp) bool	{
+	if f.Text == nil {
+		return false
+	}
+	match  := regex.FindStringSubmatch(*f.Text)
+	subexpNames := regex.SubexpNames()
+
+	if len(match) < len(subexpNames) {
+		logp.Err("Not able to match all subExpNames")
+		return false
+	}
+
+	result := make(map[string]string)
+    for i, name := range subexpNames {
+        result[name] = match[i]
+    }
+
+	// TODO - check for valid domain and rdata
+	f.DnsRecord.Domain = result["domain"]
+	f.DnsRecord.Rdata = result["rdata"]
+
+	return true
 }

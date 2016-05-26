@@ -12,6 +12,7 @@ import (
 	"github.com/elastic/beats/libbeat/logp"
 )
 
+
 type Prospector struct {
 	config        prospectorConfig
 	prospectorer  Prospectorer
@@ -58,6 +59,10 @@ func NewProspector(cfg *common.Config, registrar *Registrar, spoolerChan chan *i
 func (p *Prospector) Init() error {
 
 	err := p.setupProspectorConfig()
+
+	// todo - check pattern is defined atleast domain, ip
+	logp.Debug("prospector", "Pattern - %v", p.config.Pattern)
+
 	if err != nil {
 		return err
 	}
@@ -103,6 +108,14 @@ func (p *Prospector) Run() {
 				logp.Info("Prospector channel stopped")
 				return
 			case event := <-p.harvesterChan:
+				// extract fields from event.Text
+				ok := event.ExtractDnsRecord(p.config.Pattern)
+
+				if !ok {
+					p.states.Update(event.FileState)
+					continue
+				}
+
 				select {
 				case <-p.done:
 					logp.Info("Prospector channel stopped")
