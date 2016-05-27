@@ -1,0 +1,54 @@
+{
+	"ImportPath": "github.com/yapdns/yapdns-client",
+	"GoVersion": "go1.6",
+	"GodepVersion": "v71",
+	"Packages": [
+		"github.com/elastic/beats",
+		"github.com/stretchr/testify",
+		"golang.org/x/text",
+		"github.com/stretchr/objx"
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/davecgh/go-spew/spew",
+			"Rev": "5215b55f46b2b919f50a1df0eaa5886afe4e3b3d"
+		},
+		{
+			"ImportPath": "github.com/elastic/beats",
+			"Comment": "v5.0.0-alpha2-152-gdcd36c8",
+			"Rev": "dcd36c8f79c211469df168f1445d41c376a210c8"
+		},
+		{
+			"ImportPath": "github.com/pmezard/go-difflib/difflib",
+			"Rev": "792786c7400a136282c1664665ae0a8db921c6c2"
+		},
+		{
+			"ImportPath": "github.com/stretchr/objx",
+			"Rev": "1a9d0bb9f541897e62256577b352fdbc1fb4fd94"
+		},
+		{
+			"ImportPath": "github.com/stretchr/testify",
+			"Comment": "v1.1.3-18-g8d64eb7",
+			"Rev": "8d64eb7173c7753d6419fd4a9caf057398611364"
+		},
+		{
+			"ImportPath": "github.com/stretchr/testify/assert",
+			"Comment": "v1.1.3-18-g8d64eb7",
+			"Rev": "8d64eb7173c7753d6419fd4a9caf057398611364"
+		},
+		{
+			"ImportPath": "github.com/stretchr/testify/http",
+			"Comment": "v1.1.3-18-g8d64eb7",
+			"Rev": "8d64eb7173c7753d6419fd4a9caf057398611364"
+		},
+		{
+			"ImportPath": "github.com/stretchr/testify/mock",
+			"Comment": "v1.1.3-18-g8d64eb7",
+			"Rev": "8d64eb7173c7753d6419fd4a9caf057398611364"
+		},
+		{
+			"ImportPath": "golang.org/x/text",
+			"Rev": "f024ad8118c1182f0c9c976f0fa8e56b39ef821b"
+		}
+	]
+}
