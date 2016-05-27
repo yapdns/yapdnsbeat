@@ -113,4 +113,4 @@ output.console:
 
 # Sets log level. The default log level is error.
 # Available log levels are: critical, error, warning, info, debug
-logging.level: debug
+# logging.level: debug
