@@ -3,6 +3,8 @@
 /.idea
 /build
 /*/data
+logs
+data
 
 # Files
 .DS_Store
