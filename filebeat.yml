@@ -78,8 +78,9 @@ filebeat.prospectors:
 
 # Configure what outputs to use when sending the data collected by the beat.
 # Multiple outputs may be used.
-output.console:
+output.http:
     pretty: true
+    foo: true
 #-------------------------- Elasticsearch output ------------------------------
 # output.elasticsearch:
 #   # Array of hosts to connect to.

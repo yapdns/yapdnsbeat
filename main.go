@@ -4,7 +4,9 @@ import (
 	"os"
 
 	"github.com/yapdns/yapdns-client/beater"
+	"github.com/yapdns/yapdns-client/outputs/http"
 	"github.com/elastic/beats/libbeat/beat"
+	"github.com/elastic/beats/libbeat/outputs"
 )
 
 var Name = "filebeat"
@@ -17,6 +19,10 @@ var Name = "filebeat"
 // - registrar: records positions of files read
 // Finally, prospector uses the registrar information, on restart, to
 // determine where in each file to restart a harvester.
+
+func init() {
+	outputs.RegisterOutputPlugin("http", http.New)
+}
 
 func main() {
 	if err := beat.Run(Name, "", beater.New()); err != nil {
