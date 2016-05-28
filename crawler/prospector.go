@@ -60,9 +60,6 @@ func (p *Prospector) Init() error {
 
 	err := p.setupProspectorConfig()
 
-	// todo - check pattern is defined atleast domain, ip
-	logp.Debug("prospector", "Pattern - %v", p.config.Pattern)
-
 	if err != nil {
 		return err
 	}
@@ -188,6 +185,21 @@ func (p *Prospector) setupProspectorConfig() error {
 
 	if config.Harvester.InputType == cfg.LogInputType && len(config.Paths) == 0 {
 		return fmt.Errorf("No paths were defined for prospector")
+	}
+
+	if config.Pattern == nil {
+		return fmt.Errorf("No pattern defined to extract DNS record")
+	}
+
+	subexpNames := config.Pattern.SubexpNames();
+
+	subexpMap := make(map[string]bool)
+	for _, name := range subexpNames{
+		subexpMap[name] = true
+	}
+
+	if !subexpMap["domain"] || !subexpMap["rdata"] {
+		return fmt.Errorf("Pattern must contain domain and rdata named groups")
 	}
 
 	if config.Harvester.JSON != nil && len(config.Harvester.JSON.MessageKey) == 0 &&

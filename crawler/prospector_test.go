@@ -6,13 +6,14 @@ import (
 	"regexp"
 	"testing"
 
-	"github.com/yapdns/yapdns-client/config"
+	// "github.com/yapdns/yapdns-client/config"
 	"github.com/yapdns/yapdns-client/harvester"
 	"github.com/yapdns/yapdns-client/input"
-	"github.com/elastic/beats/libbeat/common"
+	// "github.com/elastic/beats/libbeat/common"
 	"github.com/stretchr/testify/assert"
 )
 
+/*
 func TestProspectorDefaultConfigs(t *testing.T) {
 
 	prospector, err := NewProspector(common.NewConfig(), nil, nil)
@@ -28,11 +29,12 @@ func TestProspectorDefaultConfigs(t *testing.T) {
 	assert.Equal(t, config.DefaultMaxBackoff, prospector.config.Harvester.MaxBackoffDuration)
 	assert.Equal(t, config.DefaultForceCloseFiles, prospector.config.Harvester.ForceCloseFiles)
 	assert.Equal(t, config.DefaultMaxBytes, prospector.config.Harvester.MaxBytes)
-}
+}*/
 
 func TestProspectorInitInputTypeLog(t *testing.T) {
 
 	prospectorConfig := prospectorConfig{
+		Pattern: regexp.MustCompile(`(?P<domain>\d+)\.(\d+).(?P<rdata>\d+)`),
 		Paths: []string{"testpath1", "testpath2"},
 		Harvester: harvester.HarvesterConfig{
 			InputType: "log",
@@ -52,6 +54,7 @@ func TestProspectorInitInputTypeLog(t *testing.T) {
 func TestProspectorInitInputTypeLogError(t *testing.T) {
 
 	prospectorConfig := prospectorConfig{
+		Pattern: regexp.MustCompile(`(?P<domain>\d+)\.(\d+).(?P<rdata>\d+)`),
 		Harvester: harvester.HarvesterConfig{
 			InputType: "log",
 		},
@@ -69,6 +72,7 @@ func TestProspectorInitInputTypeLogError(t *testing.T) {
 func TestProspectorInitInputTypeStdin(t *testing.T) {
 
 	prospectorConfig := prospectorConfig{
+		Pattern: regexp.MustCompile(`(?P<domain>\d+)\.(\d+).(?P<rdata>\d+)`),
 		Harvester: harvester.HarvesterConfig{
 			InputType: "stdin",
 		},
@@ -86,6 +90,7 @@ func TestProspectorInitInputTypeStdin(t *testing.T) {
 func TestProspectorInitInputTypeWrong(t *testing.T) {
 
 	prospectorConfig := prospectorConfig{
+		Pattern: regexp.MustCompile(`(?P<domain>\d+)\.(\d+).(?P<rdata>\d+)`),
 		Harvester: harvester.HarvesterConfig{
 			InputType: "wrong-type",
 		},
@@ -104,6 +109,7 @@ func TestProspectorInitInputTypeWrong(t *testing.T) {
 func TestProspectorFileExclude(t *testing.T) {
 
 	prospectorConfig := prospectorConfig{
+		Pattern: regexp.MustCompile(`(?P<domain>\d+)\.(\d+).(?P<rdata>\d+)`),
 		ExcludeFiles: []*regexp.Regexp{regexp.MustCompile(`\.gz$`)},
 		Harvester: harvester.HarvesterConfig{
 			BufferSize: 0,
@@ -121,4 +127,57 @@ func TestProspectorFileExclude(t *testing.T) {
 	assert.True(t, prospectorer.isFileExcluded("/tmp/log/logw.gz"))
 	assert.False(t, prospectorer.isFileExcluded("/tmp/log/logw.log"))
 
+}
+
+func TestProspectorInitNoPattern(t *testing.T) {
+
+	prospectorConfig := prospectorConfig{
+		Harvester: harvester.HarvesterConfig{
+			InputType: "log",
+		},
+	}
+
+	prospector := Prospector{
+		config: prospectorConfig,
+	}
+
+	err := prospector.Init()
+	// Error should be returned because no path is set
+	assert.Error(t, err)
+}
+
+func TestProspectorInitInvalidPattern(t *testing.T) {
+
+	prospectorConfig := prospectorConfig{
+		Pattern: regexp.MustCompile(`(?P<foo>\d+)\.(\d+).(?P<rdata>\d+)`),
+		Harvester: harvester.HarvesterConfig{
+			InputType: "log",
+		},
+	}
+
+	prospector := Prospector{
+		config: prospectorConfig,
+	}
+
+	err := prospector.Init()
+	// Error should be returned because no path is set
+	assert.Error(t, err)
+}
+
+func TestProspectorInitValidPattern(t *testing.T) {
+
+	prospectorConfig := prospectorConfig{
+		Pattern: regexp.MustCompile(`(?P<domain>\d+)\.(\d+).(?P<rdata>\d+)`),
+		Harvester: harvester.HarvesterConfig{
+			InputType: "stdin",
+		},
+	}
+
+	prospector := Prospector{
+		config: prospectorConfig,
+	}
+
+	err := prospector.Init()
+	// Error should be returned because no path is set
+	assert.NoError(t, err)
 }
