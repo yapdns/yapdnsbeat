@@ -4,9 +4,10 @@ import (
 	"sync"
 	"time"
 
+	"github.com/elastic/beats/libbeat/logp"
+	"github.com/patrickmn/go-cache"
 	cfg "github.com/yapdns/yapdns-client/config"
 	"github.com/yapdns/yapdns-client/input"
-	"github.com/elastic/beats/libbeat/logp"
 )
 
 var debugf = logp.MakeDebug("spooler")
@@ -19,14 +20,17 @@ type Spooler struct {
 	Channel chan *input.FileEvent // Channel is the input to the Spooler.
 
 	// Config
-	idleTimeout time.Duration // How often to flush the spooler if spoolSize is not reached.
-	spoolSize   uint64        // Maximum number of events that are stored before a flush occurs.
+	idleTimeout     time.Duration // How often to flush the spooler if spoolSize is not reached.
+	spoolSize       uint64        // Maximum number of events that are stored before a flush occurs.
+	cacheExpiration time.Duration
+	cleanupInterval time.Duration
 
 	exit          chan struct{}             // Channel used to signal shutdown.
 	nextFlushTime time.Time                 // Scheduled time of the next flush.
 	publisher     chan<- []*input.FileEvent // Channel used to publish events.
 	spool         []*input.FileEvent        // FileEvents being held by the Spooler.
 	wg            sync.WaitGroup            // WaitGroup used to control the shutdown.
+	cache         *cache.Cache
 }
 
 // NewSpooler creates and returns a new Spooler. The returned Spooler must be
@@ -47,15 +51,31 @@ func NewSpooler(
 		debugf("Spooler will use the default idle_timeout of %s", idleTimeout)
 	}
 
-	return &Spooler{
-		Channel:       make(chan *input.FileEvent, channelSize),
-		idleTimeout:   idleTimeout,
-		spoolSize:     spoolSize,
-		exit:          make(chan struct{}),
-		nextFlushTime: time.Now().Add(idleTimeout),
-		publisher:     publisher,
-		spool:         make([]*input.FileEvent, 0, spoolSize),
+	cacheExpiration := config.CacheExpiration
+	if cacheExpiration <= 0 {
+		cacheExpiration = cfg.DefaultCacheExpiration
+		debugf("Spooler will use the default defaultExpiration of %s", cacheExpiration)
 	}
+
+	cleanupInterval := config.CleanupInterval
+	if cleanupInterval <= 0 {
+		cleanupInterval = cfg.DefaultCleanupInterval
+		debugf("Spooler will delete expired items every %s", cleanupInterval)
+	}
+	spooler := &Spooler{
+		Channel:         make(chan *input.FileEvent, channelSize),
+		idleTimeout:     idleTimeout,
+		spoolSize:       spoolSize,
+		cacheExpiration: cacheExpiration,
+		cleanupInterval: cleanupInterval,
+		exit:            make(chan struct{}),
+		nextFlushTime:   time.Now().Add(idleTimeout),
+		publisher:       publisher,
+		spool:           make([]*input.FileEvent, 0, spoolSize),
+		cache:           cache.New(cacheExpiration, cleanupInterval),
+	}
+
+	return spooler
 }
 
 // Start starts the Spooler. Stop must be called to stop the Spooler.
@@ -81,8 +101,14 @@ loop:
 			ticker.Stop()
 			break loop
 		case event := <-s.Channel:
+			// and (domain, type, rdata) not in cache
 			if event != nil {
-				s.queue(event)
+				dnsRecord := event.DnsRecord
+				dnsString := dnsRecord.Domain + "," + dnsRecord.Rtype + "," + dnsRecord.Rdata
+
+				if err := s.cache.Add(dnsString, true, s.cacheExpiration); err != nil {
+					s.queue(event)
+				}
 			}
 		case <-ticker.C:
 			s.timedFlush()

@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/yapdns/yapdns-client/beater"
 	"github.com/elastic/beats/libbeat/beat"
+	"github.com/yapdns/yapdns-client/beater"
 	_ "github.com/yapdns/yapdns-client/outputs/http"
 )
 

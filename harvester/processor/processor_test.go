@@ -5,9 +5,9 @@ package processor
 import (
 	"testing"
 
-	"github.com/yapdns/yapdns-client/input"
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/stretchr/testify/assert"
+	"github.com/yapdns/yapdns-client/input"
 )
 
 func TestIsLine(t *testing.T) {

@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	cfg "github.com/yapdns/yapdns-client/config"
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/stretchr/testify/assert"
+	cfg "github.com/yapdns/yapdns-client/config"
 )
 
 func load(t *testing.T, in string) cfg.FilebeatConfig {

@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/yapdns/yapdns-client/input"
 	"github.com/elastic/beats/libbeat/common/op"
 	pubtest "github.com/elastic/beats/libbeat/publisher/testing"
 	"github.com/stretchr/testify/assert"
+	"github.com/yapdns/yapdns-client/input"
 )
 
 func makeEvents(name string, n int) []*input.FileEvent {

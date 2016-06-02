@@ -5,9 +5,9 @@ package crawler
 import (
 	"testing"
 
-	"github.com/yapdns/yapdns-client/input"
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/stretchr/testify/assert"
+	"github.com/yapdns/yapdns-client/input"
 )
 
 func TestCrawlerStartError(t *testing.T) {

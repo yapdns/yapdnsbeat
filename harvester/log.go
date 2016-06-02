@@ -7,10 +7,10 @@ import (
 
 	"golang.org/x/text/transform"
 
+	"github.com/elastic/beats/libbeat/logp"
 	"github.com/yapdns/yapdns-client/config"
 	"github.com/yapdns/yapdns-client/harvester/encoding"
 	"github.com/yapdns/yapdns-client/input"
-	"github.com/elastic/beats/libbeat/logp"
 )
 
 // Log harvester reads files line by line and sends events to the defined output
@@ -115,7 +115,7 @@ func (h *Harvester) createEvent() *input.FileEvent {
 		Bytes:         0,
 		Fileinfo:      h.State.Fileinfo,
 		JSONConfig:    h.Config.JSON,
-		DnsRecord:	   input.NewDnsRecord(),
+		DnsRecord:     input.NewDnsRecord(),
 	}
 
 	if h.Config.InputType != config.StdinInputType {

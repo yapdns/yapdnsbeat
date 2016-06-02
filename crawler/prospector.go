@@ -5,13 +5,12 @@ import (
 	"sync"
 	"time"
 
+	"github.com/elastic/beats/libbeat/common"
+	"github.com/elastic/beats/libbeat/logp"
 	cfg "github.com/yapdns/yapdns-client/config"
 	"github.com/yapdns/yapdns-client/harvester"
 	"github.com/yapdns/yapdns-client/input"
-	"github.com/elastic/beats/libbeat/common"
-	"github.com/elastic/beats/libbeat/logp"
 )
-
 
 type Prospector struct {
 	config        prospectorConfig
@@ -191,10 +190,10 @@ func (p *Prospector) setupProspectorConfig() error {
 		return fmt.Errorf("No pattern defined to extract DNS record")
 	}
 
-	subexpNames := config.Pattern.SubexpNames();
+	subexpNames := config.Pattern.SubexpNames()
 
 	subexpMap := make(map[string]bool)
-	for _, name := range subexpNames{
+	for _, name := range subexpNames {
 		subexpMap[name] = true
 	}
 

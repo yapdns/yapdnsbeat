@@ -7,11 +7,11 @@ import (
 	"path/filepath"
 	"sync"
 
+	"github.com/elastic/beats/libbeat/logp"
+	"github.com/elastic/beats/libbeat/paths"
 	cfg "github.com/yapdns/yapdns-client/config"
 	"github.com/yapdns/yapdns-client/input"
 	. "github.com/yapdns/yapdns-client/input"
-	"github.com/elastic/beats/libbeat/logp"
-	"github.com/elastic/beats/libbeat/paths"
 )
 
 type Registrar struct {

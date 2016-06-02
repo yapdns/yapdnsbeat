@@ -4,8 +4,8 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/yapdns/yapdns-client/harvester/processor"
 	"github.com/elastic/beats/libbeat/common"
+	"github.com/yapdns/yapdns-client/harvester/processor"
 )
 
 // readLine reads a full line into buffer and returns it.

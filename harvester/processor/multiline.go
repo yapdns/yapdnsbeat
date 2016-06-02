@@ -6,8 +6,8 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/yapdns/yapdns-client/input"
 	"github.com/elastic/beats/libbeat/common"
+	"github.com/yapdns/yapdns-client/input"
 )
 
 // MultiLine processor combining multiple line events into one multi-line event.

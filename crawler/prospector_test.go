@@ -35,7 +35,7 @@ func TestProspectorInitInputTypeLog(t *testing.T) {
 
 	prospectorConfig := prospectorConfig{
 		Pattern: regexp.MustCompile(`(?P<domain>\d+)\.(\d+).(?P<rdata>\d+)`),
-		Paths: []string{"testpath1", "testpath2"},
+		Paths:   []string{"testpath1", "testpath2"},
 		Harvester: harvester.HarvesterConfig{
 			InputType: "log",
 		},
@@ -109,7 +109,7 @@ func TestProspectorInitInputTypeWrong(t *testing.T) {
 func TestProspectorFileExclude(t *testing.T) {
 
 	prospectorConfig := prospectorConfig{
-		Pattern: regexp.MustCompile(`(?P<domain>\d+)\.(\d+).(?P<rdata>\d+)`),
+		Pattern:      regexp.MustCompile(`(?P<domain>\d+)\.(\d+).(?P<rdata>\d+)`),
 		ExcludeFiles: []*regexp.Regexp{regexp.MustCompile(`\.gz$`)},
 		Harvester: harvester.HarvesterConfig{
 			BufferSize: 0,

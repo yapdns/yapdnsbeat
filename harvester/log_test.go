@@ -11,8 +11,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/yapdns/yapdns-client/harvester/encoding"
 	"github.com/stretchr/testify/assert"
+	"github.com/yapdns/yapdns-client/harvester/encoding"
 )
 
 func TestReadLine(t *testing.T) {

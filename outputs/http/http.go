@@ -89,3 +89,16 @@ fail:
 	op.SigFailed(s, err)
 	return err
 }
+
+// TODO - Add implementation for bulk publish
+/*
+func (c *http) BulkPublish(
+	s op.Signaler,
+	opts outputs.Options,
+	event []common.MapStr,
+) error {
+	var jsonEvent []byte
+	var err error
+
+	return err
+}*/

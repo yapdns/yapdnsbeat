@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/yapdns/yapdns-client/input"
 	"github.com/elastic/beats/libbeat/logp"
+	"github.com/yapdns/yapdns-client/input"
 )
 
 type logFileReader struct {

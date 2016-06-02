@@ -1,16 +1,18 @@
 package: .
+version: ""
 import:
 - package: github.com/elastic/beats
   version: 40146f0616ff4bce05acbc0435c9828aa435bfd3
   subpackages:
-  - /libbeat/beat
+  - libbeat/beat
   - libbeat/cfgfile
   - libbeat/common
   - libbeat/logp
 - package: golang.org/x/text
   version: f024ad8118c1182f0c9c976f0fa8e56b39ef821b
   subpackages:
-  - /encoding
+  - encoding
 - package: github.com/stretchr/testify
   subpackages:
-  - /assert
+  - assert
+- package: github.com/patrickmn/go-cache

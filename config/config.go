@@ -17,6 +17,8 @@ const (
 	DefaultRegistryFile                      = "registry"
 	DefaultCloseOlder          time.Duration = 1 * time.Hour
 	DefaultSpoolSize           uint64        = 2048
+	DefaultCacheExpiration     time.Duration = 1 * time.Hour
+	DefaultCleanupInterval     time.Duration = 5 * time.Minute
 	DefaultIdleTimeout         time.Duration = 5 * time.Second
 	DefaultHarvesterBufferSize int           = 16 << 10 // 16384
 	DefaultInputType                         = "log"
@@ -34,12 +36,14 @@ type Config struct {
 }
 
 type FilebeatConfig struct {
-	Prospectors  []*common.Config `config:"prospectors"`
-	SpoolSize    uint64           `config:"spool_size"`
-	PublishAsync bool             `config:"publish_async"`
-	IdleTimeout  time.Duration    `config:"idle_timeout"`
-	RegistryFile string           `config:"registry_file"`
-	ConfigDir    string           `config:"config_dir"`
+	Prospectors     []*common.Config `config:"prospectors"`
+	SpoolSize       uint64           `config:"spool_size"`
+	CacheExpiration time.Duration    `config:"cache_expiration"`
+	CleanupInterval time.Duration    `config:cleanup_interval`
+	PublishAsync    bool             `config:"publish_async"`
+	IdleTimeout     time.Duration    `config:"idle_timeout"`
+	RegistryFile    string           `config:"registry_file"`
+	ConfigDir       string           `config:"config_dir"`
 }
 
 const (
