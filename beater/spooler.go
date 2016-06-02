@@ -54,13 +54,13 @@ func NewSpooler(
 	cacheExpiration := config.CacheExpiration
 	if cacheExpiration <= 0 {
 		cacheExpiration = cfg.DefaultCacheExpiration
-		debugf("Spooler will use the default defaultExpiration of %s", cacheExpiration)
+		debugf("Spooler will use the default cache_xpiration of %s", cacheExpiration)
 	}
 
 	cleanupInterval := config.CleanupInterval
 	if cleanupInterval <= 0 {
 		cleanupInterval = cfg.DefaultCleanupInterval
-		debugf("Spooler will delete expired items every %s", cleanupInterval)
+		debugf("Spooler will use the default cache cleanup_interval of %s", cleanupInterval)
 	}
 	spooler := &Spooler{
 		Channel:         make(chan *input.FileEvent, channelSize),
@@ -101,12 +101,11 @@ loop:
 			ticker.Stop()
 			break loop
 		case event := <-s.Channel:
-			// and (domain, type, rdata) not in cache
 			if event != nil {
 				dnsRecord := event.DnsRecord
 				dnsString := dnsRecord.Domain + "," + dnsRecord.Rtype + "," + dnsRecord.Rdata
 
-				if err := s.cache.Add(dnsString, true, s.cacheExpiration); err != nil {
+				if err := s.cache.Add(dnsString, true, s.cacheExpiration); err == nil {
 					s.queue(event)
 				}
 			}
