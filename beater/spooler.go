@@ -54,7 +54,7 @@ func NewSpooler(
 	cacheExpiration := config.CacheExpiration
 	if cacheExpiration <= 0 {
 		cacheExpiration = cfg.DefaultCacheExpiration
-		debugf("Spooler will use the default cache_xpiration of %s", cacheExpiration)
+		debugf("Spooler will use the default cache_expiration of %s", cacheExpiration)
 	}
 
 	cleanupInterval := config.CleanupInterval

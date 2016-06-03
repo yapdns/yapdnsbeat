@@ -1,8 +1,10 @@
 package http
 
 import (
+	"bytes"
 	"encoding/json"
 	"os"
+	"net/http"
 
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/common/op"
@@ -14,12 +16,12 @@ func init() {
 	outputs.RegisterOutputPlugin("http", New)
 }
 
-type http struct {
+type httpApi struct {
 	config config
 }
 
 func New(config *common.Config, _ int) (outputs.Outputer, error) {
-	c := &http{config: defaultConfig}
+	c := &httpApi{config: defaultConfig}
 	err := config.Unpack(&c.config)
 	if err != nil {
 		return nil, err
@@ -27,8 +29,8 @@ func New(config *common.Config, _ int) (outputs.Outputer, error) {
 	return c, nil
 }
 
-func newHttp(pretty bool) *http {
-	return &http{config{pretty, true}}
+func newHttpApi() *httpApi {
+	return &httpApi{config{}}
 }
 
 func writeBuffer(buf []byte) error {
@@ -45,40 +47,35 @@ func writeBuffer(buf []byte) error {
 }
 
 // Implement Outputer
-func (c *http) Close() error {
+func (h *httpApi) Close() error {
 	return nil
 }
 
-func (c *http) PublishEvent(
+func (h *httpApi) PublishEvent(
 	s op.Signaler,
 	opts outputs.Options,
 	event common.MapStr,
 ) error {
 	var jsonEvent []byte
+	var resp *http.Response
 	var err error
 
-	if c.config.Pretty {
-		jsonEvent, err = json.MarshalIndent(event, "", "  ")
-	} else {
-		jsonEvent, err = json.Marshal(event)
-	}
+	jsonEvent, err = json.Marshal(event)
+
 	if err != nil {
 		logp.Err("Fail to convert the event to JSON (%v): %#v", err, event)
 		op.SigCompleted(s)
 		return err
 	}
 
-	if c.config.Foo {
-		a := []byte("foo")
-		jsonEvent = append(a, jsonEvent...)
-	}
+    resp, err = http.Post(h.config.ApiEndpoint, "application/json", bytes.NewBuffer(jsonEvent))
 
-	if err = writeBuffer(jsonEvent); err != nil {
+    if err != nil {
+        logp.Err("Failed to send POST request to %v", h.config.ApiEndpoint)
 		goto fail
-	}
-	if err = writeBuffer([]byte{'\n'}); err != nil {
-		goto fail
-	}
+    }
+
+    defer resp.Body.Close()
 
 	op.SigCompleted(s)
 	return nil
@@ -90,15 +87,38 @@ fail:
 	return err
 }
 
-// TODO - Add implementation for bulk publish
-/*
-func (c *http) BulkPublish(
+func (h *httpApi) BulkPublish(
 	s op.Signaler,
 	opts outputs.Options,
 	event []common.MapStr,
 ) error {
 	var jsonEvent []byte
+	var resp *http.Response
 	var err error
 
+	jsonEvent, err = json.Marshal(event)
+
+	if err != nil {
+		logp.Err("Fail to convert the event to JSON (%v): %#v", err, event)
+		op.SigCompleted(s)
+		return err
+	}
+
+    resp, err = http.Post(h.config.BulkApiEndpoint, "application/json", bytes.NewBuffer(jsonEvent))
+
+    if err != nil {
+        logp.Err("Failed to send POST request to %v", h.config.ApiEndpoint)
+		goto fail
+    }
+
+    defer resp.Body.Close()
+
+	op.SigCompleted(s)
+	return nil
+fail:
+	if opts.Guaranteed {
+		logp.Critical("Unable to publish events to http: %v", err)
+	}
+	op.SigFailed(s, err)
 	return err
-}*/
+}

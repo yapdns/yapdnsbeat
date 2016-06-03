@@ -1,13 +1,11 @@
 package http
 
 type config struct {
-	Pretty bool `config:"pretty"`
-	Foo    bool `config:"foo"`
+	ApiEndpoint string `config:"api_endpoint"`
+	BulkApiEndpoint string `config:"bulk_api_endpoint"`
 }
 
 var (
 	defaultConfig = config{
-		Pretty: false,
-		Foo:    true,
 	}
 )
