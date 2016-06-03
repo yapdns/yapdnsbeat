@@ -39,7 +39,7 @@ type FilebeatConfig struct {
 	Prospectors     []*common.Config `config:"prospectors"`
 	SpoolSize       uint64           `config:"spool_size"`
 	CacheExpiration time.Duration    `config:"cache_expiration"`
-	CleanupInterval time.Duration    `config:cleanup_interval`
+	CleanupInterval time.Duration    `config:"cleanup_interval"`
 	PublishAsync    bool             `config:"publish_async"`
 	IdleTimeout     time.Duration    `config:"idle_timeout"`
 	RegistryFile    string           `config:"registry_file"`
