@@ -3,8 +3,8 @@ package http
 import (
 	"bytes"
 	"encoding/json"
-	"os"
 	"net/http"
+	"os"
 
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/common/op"
@@ -68,14 +68,14 @@ func (h *httpApi) PublishEvent(
 		return err
 	}
 
-    resp, err = http.Post(h.config.ApiEndpoint, "application/json", bytes.NewBuffer(jsonEvent))
+	resp, err = http.Post(h.config.ApiEndpoint, "application/json", bytes.NewBuffer(jsonEvent))
 
-    if err != nil {
-        logp.Err("Failed to send POST request to %v", h.config.ApiEndpoint)
+	if err != nil {
+		logp.Err("Failed to send POST request to %v", h.config.ApiEndpoint)
 		goto fail
-    }
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
 	op.SigCompleted(s)
 	return nil
@@ -104,14 +104,14 @@ func (h *httpApi) BulkPublish(
 		return err
 	}
 
-    resp, err = http.Post(h.config.BulkApiEndpoint, "application/json", bytes.NewBuffer(jsonEvent))
+	resp, err = http.Post(h.config.BulkApiEndpoint, "application/json", bytes.NewBuffer(jsonEvent))
 
-    if err != nil {
-        logp.Err("Failed to send POST request to %v", h.config.ApiEndpoint)
+	if err != nil {
+		logp.Err("Failed to send POST request to %v", h.config.ApiEndpoint)
 		goto fail
-    }
+	}
 
-    defer resp.Body.Close()
+	defer resp.Body.Close()
 
 	op.SigCompleted(s)
 	return nil
