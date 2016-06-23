@@ -48,6 +48,16 @@ func (fb *Filebeat) Config(b *beat.Beat) error {
 func (fb *Filebeat) Setup(b *beat.Beat) error {
 	fb.done = make(chan struct{})
 
+	// ClientId = fb.FbConfig.ClientId
+	// ClientSecret = fb.FbConfig.ClientSecret
+
+	// jsonEvent :=
+	// // send POST request to validate client
+	// resp, err = http.Post(, "application/json", bytes.NewBuffer(jsonEvent))
+
+	// if err != nil {
+	// 	logp.Err("Failed to send POST request to %v", h.config.ApiEndpoint)
+	// }
 	return nil
 }
 
