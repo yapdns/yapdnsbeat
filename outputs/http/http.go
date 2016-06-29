@@ -68,8 +68,12 @@ func (h *httpApi) PublishEvent(
 		return err
 	}
 
-	resp, err = http.Post(h.config.ApiEndpoint, "application/json", bytes.NewBuffer(jsonEvent))
+	req, err := http.NewRequest("POST", h.config.ApiEndpoint, bytes.NewBuffer(jsonEvent))
+	req.Header.Set("Content-Type", "application/json")
+	req.SetBasicAuth(h.config.ClientId, h.config.ClientSecretKey)
 
+	client := &http.Client{}
+	resp, err = client.Do(req)
 	if err != nil {
 		logp.Err("Failed to send POST request to %v", h.config.ApiEndpoint)
 		goto fail
@@ -104,8 +108,12 @@ func (h *httpApi) BulkPublish(
 		return err
 	}
 
-	resp, err = http.Post(h.config.BulkApiEndpoint, "application/json", bytes.NewBuffer(jsonEvent))
+	req, err := http.NewRequest("POST", h.config.BulkApiEndpoint, bytes.NewBuffer(jsonEvent))
+	req.Header.Set("Content-Type", "application/json")
+	req.SetBasicAuth(h.config.ClientId, h.config.ClientSecretKey)
 
+	client := &http.Client{}
+	resp, err = client.Do(req)
 	if err != nil {
 		logp.Err("Failed to send POST request to %v", h.config.ApiEndpoint)
 		goto fail

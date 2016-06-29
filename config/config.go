@@ -44,8 +44,6 @@ type FilebeatConfig struct {
 	IdleTimeout     time.Duration    `config:"idle_timeout"`
 	RegistryFile    string           `config:"registry_file"`
 	ConfigDir       string           `config:"config_dir"`
-	ClientId		string			 `config:"client_id"`
-	ClientSecret	string			 `config:"client_secret"`
 }
 
 const (

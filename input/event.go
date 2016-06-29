@@ -106,20 +106,14 @@ func mergeJSONFields(f *FileEvent, event common.MapStr) {
 func (f *FileEvent) ToMapStr() common.MapStr {
 	event := common.MapStr{
 		common.EventMetadataKey: f.EventMetadata,
-		"@timestamp":            common.Time(f.ReadTime),
+		"timestamp":             common.Time(f.ReadTime),
 		"domain":                f.DnsRecord.Domain,
 		"rdata":                 f.DnsRecord.Rdata,
 		"rtype":                 f.DnsRecord.Rtype,
-		// "source":                f.Source,
-		// "offset":                f.Offset, // Offset here is the offset before the starting char.
-		// "type":                  f.DocumentType,
-		// "input_type":            f.InputType,
 	}
 
-	if f.JSONConfig != nil && len(f.JSONFields) > 0 {
-		mergeJSONFields(f, event)
-	} else {
-		event["message"] = f.Text
+	if f.DnsRecord.Ttl != -1 {
+		event["ttl"] = f.DnsRecord.Ttl
 	}
 
 	return event
@@ -142,8 +136,14 @@ func (f *FileEvent) ExtractDnsRecord(regex *regexp.Regexp) bool {
 		result[name] = match[i]
 	}
 
-	// TODO - check for valid domain and rdata
-	f.DnsRecord.Domain = result["domain"]
+	// check for valid domain and rdata
+	if _, ok := result["domain"]; ok {
+		f.DnsRecord.Domain = result["domain"]
+	}
+
+	if _, ok := result["rdata"]; ok {
+		f.DnsRecord.Domain = result["rdata"]
+	}
 	f.DnsRecord.Rdata = result["rdata"]
 
 	return true

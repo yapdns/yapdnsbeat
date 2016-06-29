@@ -80,7 +80,8 @@ filebeat.prospectors:
 # Multiple outputs may be used.
 output.http:
     # TODO - add authentication options
-    auth_endpoint: http://localhost:5050/auth
+    client_id: 'foo'
+    client_secret_key: 'foo'
     api_endpoint: http://localhost:5050/
     bulk_api_endpoint: http://localhost:5050/bulk
 #-------------------------- Elasticsearch output ------------------------------
