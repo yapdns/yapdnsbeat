@@ -104,12 +104,17 @@ func mergeJSONFields(f *FileEvent, event common.MapStr) {
 }
 
 func (f *FileEvent) ToMapStr() common.MapStr {
+	hostname, _ := os.Hostname()
+
 	event := common.MapStr{
-		common.EventMetadataKey: f.EventMetadata,
-		"timestamp":             common.Time(f.ReadTime),
-		"domain":                f.DnsRecord.Domain,
-		"rdata":                 f.DnsRecord.Rdata,
-		"rtype":                 f.DnsRecord.Rtype,
+		"timestamp": common.Time(f.ReadTime),
+		"domain":    f.DnsRecord.Domain,
+		"rdata":     f.DnsRecord.Rdata,
+		"rtype":     f.DnsRecord.Rtype,
+		"client": common.MapStr{
+			"hostname": hostname,
+			"ip":       Ip,
+		},
 	}
 
 	if f.DnsRecord.Ttl != -1 {

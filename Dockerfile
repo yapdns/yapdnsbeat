@@ -16,4 +16,4 @@ RUN curl -fsSL "$GLIDE_DOWNLOAD_URL" -o glide.zip \
 
 RUN mkdir -p /go/src/github.com/yapdns/yapdns-client
 ADD . /go/src/github.com/yapdns/yapdns-client
-CMD cd /go/src/github.com/yapdns/yapdns-client && go build && ./yapdns-client -e
+CMD cd /go/src/github.com/yapdns/yapdns-client && go build && ./yapdns-client -e -v
