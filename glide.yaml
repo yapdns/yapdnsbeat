@@ -16,3 +16,6 @@ import:
   subpackages:
   - assert
 - package: github.com/patrickmn/go-cache
+  version: 1881a9bccb818787f68c52bfba648c6cf34c34fa
+  subpackages:
+  - cache
