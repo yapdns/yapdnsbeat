@@ -147,9 +147,8 @@ func (f *FileEvent) ExtractDnsRecord(regex *regexp.Regexp) bool {
 	}
 
 	if _, ok := result["rdata"]; ok {
-		f.DnsRecord.Domain = result["rdata"]
+		f.DnsRecord.Rdata = result["rdata"]
 	}
-	f.DnsRecord.Rdata = result["rdata"]
 
 	return true
 }
