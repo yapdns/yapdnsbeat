@@ -1,4 +1,4 @@
-package: .
+package: github.com/yapdns/yapdns-client
 version: ""
 import:
 - package: github.com/elastic/beats
