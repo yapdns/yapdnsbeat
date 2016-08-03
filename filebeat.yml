@@ -84,8 +84,8 @@ output.http:
     client_secret_key: 'foo'
     api_endpoint: http://localhost:5050/
     bulk_api_endpoint: http://localhost:5050/bulk
-output.console:
-  pretty: true
+# output.console:
+#   pretty: true
 #-------------------------- Elasticsearch output ------------------------------
 # output.elasticsearch:
 #   # Array of hosts to connect to.

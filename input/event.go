@@ -112,7 +112,7 @@ func (f *FileEvent) ToMapStr() common.MapStr {
 		"rdata":     f.DnsRecord.Rdata,
 		"rtype":     f.DnsRecord.Rtype,
 		"client": common.MapStr{
-			"hostname": hostname,
+			"service_type": hostname,
 			"ip":       Ip,
 		},
 	}
