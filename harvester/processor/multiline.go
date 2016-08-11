@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/elastic/beats/libbeat/common"
-	"github.com/yapdns/yapdns-client/input"
+	"github.com/yapdns/yapdnsbeat/input"
 )
 
 // MultiLine processor combining multiple line events into one multi-line event.

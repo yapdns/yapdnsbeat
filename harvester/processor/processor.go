@@ -8,8 +8,8 @@ import (
 
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/logp"
-	"github.com/yapdns/yapdns-client/harvester/encoding"
-	"github.com/yapdns/yapdns-client/input"
+	"github.com/yapdns/yapdnsbeat/harvester/encoding"
+	"github.com/yapdns/yapdnsbeat/input"
 )
 
 const (

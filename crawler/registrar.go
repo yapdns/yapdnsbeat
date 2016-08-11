@@ -9,9 +9,9 @@ import (
 
 	"github.com/elastic/beats/libbeat/logp"
 	"github.com/elastic/beats/libbeat/paths"
-	cfg "github.com/yapdns/yapdns-client/config"
-	"github.com/yapdns/yapdns-client/input"
-	. "github.com/yapdns/yapdns-client/input"
+	cfg "github.com/yapdns/yapdnsbeat/config"
+	"github.com/yapdns/yapdnsbeat/input"
+	. "github.com/yapdns/yapdnsbeat/input"
 )
 
 type Registrar struct {

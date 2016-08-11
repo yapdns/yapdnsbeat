@@ -1,4 +1,4 @@
-BEATNAME=yapdns-client
+BEATNAME=yapdnsbeat
 BEAT_DIR=github.com/yapdns
 SYSTEM_TESTS=false
 TEST_ENVIRONMENT=false

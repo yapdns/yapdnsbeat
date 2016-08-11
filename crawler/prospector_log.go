@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/elastic/beats/libbeat/logp"
-	"github.com/yapdns/yapdns-client/harvester"
-	"github.com/yapdns/yapdns-client/input"
+	"github.com/yapdns/yapdnsbeat/harvester"
+	"github.com/yapdns/yapdnsbeat/input"
 )
 
 type ProspectorLog struct {

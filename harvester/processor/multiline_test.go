@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/yapdns/yapdns-client/harvester/encoding"
-	"github.com/yapdns/yapdns-client/input"
+	"github.com/yapdns/yapdnsbeat/harvester/encoding"
+	"github.com/yapdns/yapdnsbeat/input"
 )
 
 type bufferSource struct{ buf *bytes.Buffer }

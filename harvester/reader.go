@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/elastic/beats/libbeat/logp"
-	"github.com/yapdns/yapdns-client/input"
+	"github.com/yapdns/yapdnsbeat/input"
 )
 
 type logFileReader struct {

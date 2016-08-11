@@ -8,9 +8,9 @@ import (
 	"golang.org/x/text/transform"
 
 	"github.com/elastic/beats/libbeat/logp"
-	"github.com/yapdns/yapdns-client/config"
-	"github.com/yapdns/yapdns-client/harvester/encoding"
-	"github.com/yapdns/yapdns-client/input"
+	"github.com/yapdns/yapdnsbeat/config"
+	"github.com/yapdns/yapdnsbeat/harvester/encoding"
+	"github.com/yapdns/yapdnsbeat/input"
 )
 
 // Log harvester reads files line by line and sends events to the defined output

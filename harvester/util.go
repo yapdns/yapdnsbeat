@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/elastic/beats/libbeat/common"
-	"github.com/yapdns/yapdns-client/harvester/processor"
+	"github.com/yapdns/yapdnsbeat/harvester/processor"
 )
 
 // readLine reads a full line into buffer and returns it.

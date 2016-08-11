@@ -7,9 +7,9 @@ import (
 
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/logp"
-	cfg "github.com/yapdns/yapdns-client/config"
-	"github.com/yapdns/yapdns-client/harvester"
-	"github.com/yapdns/yapdns-client/input"
+	cfg "github.com/yapdns/yapdnsbeat/config"
+	"github.com/yapdns/yapdnsbeat/harvester"
+	"github.com/yapdns/yapdnsbeat/input"
 )
 
 type Prospector struct {

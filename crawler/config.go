@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/yapdns/yapdns-client/harvester"
+	"github.com/yapdns/yapdnsbeat/harvester"
 )
 
 const (

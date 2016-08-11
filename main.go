@@ -4,8 +4,8 @@ import (
 	"os"
 
 	"github.com/elastic/beats/libbeat/beat"
-	"github.com/yapdns/yapdns-client/beater"
-	_ "github.com/yapdns/yapdns-client/outputs/http"
+	"github.com/yapdns/yapdnsbeat/beater"
+	_ "github.com/yapdns/yapdnsbeat/outputs/http"
 )
 
 var Name = "filebeat"

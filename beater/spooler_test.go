@@ -8,7 +8,7 @@ import (
 
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/stretchr/testify/assert"
-	cfg "github.com/yapdns/yapdns-client/config"
+	cfg "github.com/yapdns/yapdnsbeat/config"
 )
 
 func load(t *testing.T, in string) cfg.FilebeatConfig {

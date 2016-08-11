@@ -6,8 +6,8 @@ import (
 
 	"github.com/elastic/beats/libbeat/logp"
 	"github.com/patrickmn/go-cache"
-	cfg "github.com/yapdns/yapdns-client/config"
-	"github.com/yapdns/yapdns-client/input"
+	cfg "github.com/yapdns/yapdnsbeat/config"
+	"github.com/yapdns/yapdnsbeat/input"
 )
 
 var debugf = logp.MakeDebug("spooler")

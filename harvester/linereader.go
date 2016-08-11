@@ -3,8 +3,8 @@ package harvester
 import (
 	"golang.org/x/text/encoding"
 
-	"github.com/yapdns/yapdns-client/harvester/processor"
-	"github.com/yapdns/yapdns-client/input"
+	"github.com/yapdns/yapdnsbeat/harvester/processor"
+	"github.com/yapdns/yapdnsbeat/input"
 )
 
 func createLineReader(
