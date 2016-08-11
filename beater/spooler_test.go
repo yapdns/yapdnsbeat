@@ -11,13 +11,13 @@ import (
 	cfg "github.com/yapdns/yapdnsbeat/config"
 )
 
-func load(t *testing.T, in string) cfg.FilebeatConfig {
+func load(t *testing.T, in string) cfg.YapdnsBeatConfig {
 	yaml, err := common.NewConfigWithYAML([]byte(in), "")
 	if err != nil {
 		t.Fatalf("Failed to parse config input: %v", err)
 	}
 
-	var config cfg.FilebeatConfig
+	var config cfg.YapdnsBeatConfig
 	err = yaml.Unpack(&config)
 	if err != nil {
 		t.Fatalf("Failed to unpack config: %v", err)
@@ -38,7 +38,7 @@ func TestNewSpoolerDefaultConfig(t *testing.T) {
 
 func TestNewSpoolerSpoolSize(t *testing.T) {
 	spoolSize := uint64(19)
-	config := cfg.FilebeatConfig{SpoolSize: spoolSize}
+	config := cfg.YapdnsBeatConfig{SpoolSize: spoolSize}
 	spooler := NewSpooler(config, nil)
 
 	assert.Equal(t, spoolSize, spooler.spoolSize)

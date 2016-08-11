@@ -16,8 +16,8 @@ class BaseTest(TestCase):
 
     def get_registry(self):
         # Returns content of the registry file
-        dotFilebeat = self.working_dir + '/registry'
-        assert os.path.isfile(dotFilebeat) is True
+        dotYapdnsBeat = self.working_dir + '/registry'
+        assert os.path.isfile(dotYapdnsBeat) is True
 
-        with open(dotFilebeat) as file:
+        with open(dotYapdnsBeat) as file:
             return json.load(file)

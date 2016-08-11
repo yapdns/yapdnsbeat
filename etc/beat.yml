@@ -1,4 +1,4 @@
-###################### Filebeat Configuration Example #########################
+###################### YapdnsBeat Configuration Example #########################
 
 # This file is an example configuration file highlighting only the most common
 # options. The filebeat.full.yml file from the same directory contains all the
@@ -7,7 +7,7 @@
 # You can find the full configuration reference here:
 # https://www.elastic.co/guide/en/beats/filebeat/index.html
 
-#=========================== Filebeat prospectors =============================
+#=========================== YapdnsBeat prospectors =============================
 
 filebeat.prospectors:
 
@@ -30,7 +30,7 @@ filebeat.prospectors:
   # matching any regular expression from the list.
   #include_lines: ["^ERR", "^WARN"]
 
-  # Exclude files. A list of regular expressions to match. Filebeat drops the files that
+  # Exclude files. A list of regular expressions to match. YapdnsBeat drops the files that
   # are matching any regular expression from the list. By default, no files are dropped.
   #exclude_files: [".gz$"]
 

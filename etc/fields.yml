@@ -26,10 +26,10 @@
     - name: type
       required: true
       description: >
-        The name of the log event. This field is set to the value specified for the `document_type` option in the prospector section of the Filebeat config file.
+        The name of the log event. This field is set to the value specified for the `document_type` option in the prospector section of the YapdnsBeat config file.
 
     - name: input_type
       required: true
       description: >
-        The input type from which the event was generated. This field is set to the value specified for the `input_type` option in the prospector section of the Filebeat config file.
+        The input type from which the event was generated. This field is set to the value specified for the `input_type` option in the prospector section of the YapdnsBeat config file.
 

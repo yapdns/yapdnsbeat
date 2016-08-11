@@ -8,7 +8,7 @@ import (
 	_ "github.com/yapdns/yapdnsbeat/outputs/http"
 )
 
-var Name = "filebeat"
+var Name = "yapdnsbeat"
 
 // The basic model of execution:
 // - prospector: finds files in paths/globs to harvest, starts harvesters

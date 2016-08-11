@@ -5,14 +5,14 @@ import time
 import unittest
 
 """
-Tests that Filebeat shuts down cleanly.
+Tests that YapdnsBeat shuts down cleanly.
 """
 
 class Test(BaseTest):
 
     def test_shutdown(self):
         """
-        Test starting and stopping Filebeat under load.
+        Test starting and stopping YapdnsBeat under load.
         """
 
         # Uncompress the nasa log file.

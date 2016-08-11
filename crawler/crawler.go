@@ -12,7 +12,7 @@ import (
 /*
  The hierarchy for the crawler objects is explained as following
 
- Crawler: Filebeat has one crawler. The crawler is the single point of control
+ Crawler: YapdnsBeat has one crawler. The crawler is the single point of control
  	and stores the state. The state is written through the registrar
  Prospector: For every FileConfig the crawler starts a prospector
  Harvester: For every file found inside the FileConfig, the Prospector starts a Harvester

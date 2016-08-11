@@ -32,10 +32,10 @@ const (
 )
 
 type Config struct {
-	Filebeat FilebeatConfig
+	YapdnsBeat YapdnsBeatConfig
 }
 
-type FilebeatConfig struct {
+type YapdnsBeatConfig struct {
 	Prospectors     []*common.Config `config:"prospectors"`
 	SpoolSize       uint64           `config:"spool_size"`
 	CacheExpiration time.Duration    `config:"cache_expiration"`
@@ -97,7 +97,7 @@ func mergeConfigFiles(configFiles []string, config *Config) error {
 		tmpConfig := &Config{}
 		cfgfile.Read(tmpConfig, file)
 
-		config.Filebeat.Prospectors = append(config.Filebeat.Prospectors, tmpConfig.Filebeat.Prospectors...)
+		config.YapdnsBeat.Prospectors = append(config.YapdnsBeat.Prospectors, tmpConfig.YapdnsBeat.Prospectors...)
 	}
 
 	return nil
@@ -106,7 +106,7 @@ func mergeConfigFiles(configFiles []string, config *Config) error {
 // Fetches and merges all config files given by configDir. All are put into one config object
 func (config *Config) FetchConfigs() {
 
-	configDir := config.Filebeat.ConfigDir
+	configDir := config.YapdnsBeat.ConfigDir
 
 	// If option not set, do nothing
 	if configDir == "" {
@@ -131,7 +131,7 @@ func (config *Config) FetchConfigs() {
 		log.Fatal("Error merging config files: ", err)
 	}
 
-	if len(config.Filebeat.Prospectors) == 0 {
+	if len(config.YapdnsBeat.Prospectors) == 0 {
 		log.Fatalf("No paths given. What files do you want me to watch?")
 	}
 }

@@ -11,9 +11,9 @@ import (
 	"github.com/yapdns/yapdnsbeat/input"
 )
 
-// Filebeat is a beater object. Contains all objects needed to run the beat
-type Filebeat struct {
-	FbConfig *cfg.Config
+// YapdnsBeat is a beater object. Contains all objects needed to run the beat
+type YapdnsBeat struct {
+	YbConfig *cfg.Config
 	// Channel from harvesters to spooler
 	publisherChan chan []*input.FileEvent
 	spooler       *Spooler
@@ -23,33 +23,33 @@ type Filebeat struct {
 	done          chan struct{}
 }
 
-// New creates a new Filebeat pointer instance.
-func New() *Filebeat {
-	return &Filebeat{}
+// New creates a new YapdnsBeat pointer instance.
+func New() *YapdnsBeat {
+	return &YapdnsBeat{}
 }
 
 // Config setups up the filebeat configuration by fetch all additional config files
-func (fb *Filebeat) Config(b *beat.Beat) error {
+func (yb *YapdnsBeat) Config(b *beat.Beat) error {
 
 	// Load Base config
-	err := b.RawConfig.Unpack(&fb.FbConfig)
+	err := b.RawConfig.Unpack(&yb.YbConfig)
 
 	if err != nil {
 		return fmt.Errorf("Error reading config file: %v", err)
 	}
 
 	// Check if optional config_dir is set to fetch additional prospector config files
-	fb.FbConfig.FetchConfigs()
+	yb.YbConfig.FetchConfigs()
 
 	return nil
 }
 
-// Setup applies the minimum required setup to a new Filebeat instance for use.
-func (fb *Filebeat) Setup(b *beat.Beat) error {
-	fb.done = make(chan struct{})
+// Setup applies the minimum required setup to a new YapdnsBeat instance for use.
+func (yb *YapdnsBeat) Setup(b *beat.Beat) error {
+	yb.done = make(chan struct{})
 
-	// ClientId = fb.FbConfig.ClientId
-	// ClientSecret = fb.FbConfig.ClientSecret
+	// ClientId = yb.YbConfig.ClientId
+	// ClientSecret = yb.YbConfig.ClientSecret
 
 	// jsonEvent :=
 	// // send POST request to validate client
@@ -62,76 +62,76 @@ func (fb *Filebeat) Setup(b *beat.Beat) error {
 }
 
 // Run allows the beater to be run as a beat.
-func (fb *Filebeat) Run(b *beat.Beat) error {
+func (yb *YapdnsBeat) Run(b *beat.Beat) error {
 
 	var err error
 
 	// Init channels
-	fb.publisherChan = make(chan []*input.FileEvent, 1)
+	yb.publisherChan = make(chan []*input.FileEvent, 1)
 
 	// Setup registrar to persist state
-	fb.registrar, err = crawler.NewRegistrar(fb.FbConfig.Filebeat.RegistryFile)
+	yb.registrar, err = crawler.NewRegistrar(yb.YbConfig.YapdnsBeat.RegistryFile)
 	if err != nil {
 		logp.Err("Could not init registrar: %v", err)
 		return err
 	}
 
-	fb.crawler = &crawler.Crawler{
-		Registrar: fb.registrar,
+	yb.crawler = &crawler.Crawler{
+		Registrar: yb.registrar,
 	}
 
 	// Load the previous log file locations now, for use in prospector
-	fb.registrar.LoadState()
+	yb.registrar.LoadState()
 
 	// Init and Start spooler: Harvesters dump events into the spooler.
-	fb.spooler = NewSpooler(fb.FbConfig.Filebeat, fb.publisherChan)
+	yb.spooler = NewSpooler(yb.YbConfig.YapdnsBeat, yb.publisherChan)
 
 	if err != nil {
 		logp.Err("Could not init spooler: %v", err)
 		return err
 	}
 
-	fb.registrar.Start()
-	fb.spooler.Start()
+	yb.registrar.Start()
+	yb.spooler.Start()
 
-	err = fb.crawler.Start(fb.FbConfig.Filebeat.Prospectors, fb.spooler.Channel)
+	err = yb.crawler.Start(yb.YbConfig.YapdnsBeat.Prospectors, yb.spooler.Channel)
 	if err != nil {
 		return err
 	}
 
 	// Publishes event to output
-	fb.pub = newPublisher(fb.FbConfig.Filebeat.PublishAsync,
-		fb.publisherChan, fb.registrar.Channel, b.Publisher.Connect())
-	fb.pub.Start()
+	yb.pub = newPublisher(yb.YbConfig.YapdnsBeat.PublishAsync,
+		yb.publisherChan, yb.registrar.Channel, b.Publisher.Connect())
+	yb.pub.Start()
 
 	// Blocks progressing
-	<-fb.done
+	<-yb.done
 
 	return nil
 }
 
 // Cleanup removes any temporary files, data, or other items that were created by the Beat.
-func (fb *Filebeat) Cleanup(b *beat.Beat) error {
+func (yb *YapdnsBeat) Cleanup(b *beat.Beat) error {
 	return nil
 }
 
 // Stop is called on exit to stop the crawling, spooling and registration processes.
-func (fb *Filebeat) Stop() {
+func (yb *YapdnsBeat) Stop() {
 
 	logp.Info("Stopping filebeat")
 
 	// Stop crawler -> stop prospectors -> stop harvesters
-	fb.crawler.Stop()
+	yb.crawler.Stop()
 
 	// Stopping spooler will flush items
-	fb.spooler.Stop()
+	yb.spooler.Stop()
 
 	// stopping publisher (might potentially drop items)
-	fb.pub.Stop()
+	yb.pub.Stop()
 
 	// Stopping registrar will write last state
-	fb.registrar.Stop()
+	yb.registrar.Stop()
 
-	// Stop Filebeat
-	close(fb.done)
+	// Stop YapdnsBeat
+	close(yb.done)
 }

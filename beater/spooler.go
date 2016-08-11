@@ -36,7 +36,7 @@ type Spooler struct {
 // NewSpooler creates and returns a new Spooler. The returned Spooler must be
 // started by calling Start before it can be used.
 func NewSpooler(
-	config cfg.FilebeatConfig,
+	config cfg.YapdnsBeatConfig,
 	publisher chan<- []*input.FileEvent,
 ) *Spooler {
 	spoolSize := config.SpoolSize
