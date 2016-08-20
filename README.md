@@ -1,4 +1,4 @@
-# YapdnsBeat
+# YAPDNSBeat
 
 Watch log files, extract DNS records and send them to YAPDNS application
 
