@@ -22,6 +22,8 @@ yapdnsbeat.prospectors:
     - foo.log
     #- c:\programdata\elasticsearch\logs\*
 
+  # A regex used to parse the DNS record from log message, named group matches map to record fields.
+  # The regex must have the following named groups - `domain`, `rdata` and optionally `rtype` and `ttl`.
   pattern: (?P<domain>\d+)\.(\d+).(?P<rdata>\d+)
 
   # Exclude lines. A list of regular expressions to match. It drops the lines that are
@@ -78,14 +80,19 @@ yapdnsbeat.prospectors:
 
 # Configure what outputs to use when sending the data collected by the beat.
 # Multiple outputs may be used.
+
+# Output plugin that uses HTTP Authentication and does a POST on the api_endpoint and bulk_api_endpoint
+# Used for publishing data to YAPDNS Backend - update api endpoints
 output.http:
-    # TODO - add authentication options
     client_id: 'foo'
     client_secret_key: 'foo'
     api_endpoint: http://localhost:5050/
     bulk_api_endpoint: http://localhost:5050/bulk
+
+# Useful for testing
 # output.console:
 #   pretty: true
+
 #-------------------------- Elasticsearch output ------------------------------
 # output.elasticsearch:
 #   # Array of hosts to connect to.
